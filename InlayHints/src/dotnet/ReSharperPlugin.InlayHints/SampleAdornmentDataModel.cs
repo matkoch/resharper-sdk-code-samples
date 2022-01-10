@@ -8,24 +8,23 @@ using JetBrains.UI.Icons;
 using JetBrains.UI.RichText;
 using JetBrains.Util;
 
-namespace ReSharperPlugin.CodeVision
-{
-    public class SampleAdornmentDataModel : IIntraTextAdornmentDataModel
-    {
-        public void ExecuteNavigation(PopupWindowContextSource popupWindowContextSource)
-        {
-            MessageBox.ShowInfo($"{nameof(SampleAdornmentDataModel)}.{nameof(ExecuteNavigation)}");
-        }
+namespace ReSharperPlugin.CodeVision;
 
-        public RichText Text => $"{nameof(SampleAdornmentDataModel)}.{nameof(Text)}";
-        public bool HasContextMenu { get; }
-        public IPresentableItem ContextMenuTitle { get; }
-        public IEnumerable<BulbMenuItem> ContextMenuItems { get; }
-        public bool IsNavigable { get; }
-        public TextRange? SelectionRange { get; }
-        public IconId IconId { get; }
-        public bool IsPreceding { get; }
-        public int Order { get; }
-        public InlayHintsMode InlayHintsMode => InlayHintsMode.Always;
+public class SampleAdornmentDataModel : IIntraTextAdornmentDataModel
+{
+    public void ExecuteNavigation(PopupWindowContextSource popupWindowContextSource)
+    {
+        MessageBox.ShowInfo($"{nameof(SampleAdornmentDataModel)}.{nameof(ExecuteNavigation)}", "ReSharper SDK");
     }
+
+    public RichText Text => $"ReSharper SDK: {nameof(SampleAdornmentDataModel)}.{nameof(Text)}";
+    public bool HasContextMenu { get; }
+    public IPresentableItem ContextMenuTitle { get; }
+    public IEnumerable<BulbMenuItem> ContextMenuItems { get; }
+    public bool IsNavigable { get; }
+    public TextRange? SelectionRange { get; }
+    public IconId IconId { get; }
+    public bool IsPreceding { get; }
+    public int Order { get; }
+    public InlayHintsMode InlayHintsMode => InlayHintsMode.Always;
 }

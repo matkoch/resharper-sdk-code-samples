@@ -7,39 +7,38 @@ using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 
-namespace ReSharperPlugin.PostfixTemplates
+namespace ReSharperPlugin.PostfixTemplates;
+
+[PostfixTemplate("cw", "ReSharper SDK: Console.WriteLine an expression", "Console.WriteLine(expr)")]
+public class SamplePostfixTemplate : CSharpPostfixTemplate
 {
-    [PostfixTemplate("cw", "Console.WriteLine an expression", "Console.WriteLine(expr)")]
-    public class SamplePostfixTemplate : CSharpPostfixTemplate
+    public override PostfixTemplateInfo TryCreateInfo(CSharpPostfixTemplateContext context)
     {
-        public override PostfixTemplateInfo TryCreateInfo(CSharpPostfixTemplateContext context)
+        var withValuesContexts = CSharpPostfixUtils.FindExpressionWithValuesContexts(context);
+        return withValuesContexts.Length == 0
+            ? null
+            : new PostfixTemplateInfo("cw", withValuesContexts, availableInPreciseMode: true);
+    }
+
+    public override PostfixTemplateBehavior CreateBehavior(PostfixTemplateInfo info)
+    {
+        return new SamplePostfixBehavior(info);
+    }
+
+    private sealed class SamplePostfixBehavior : CSharpStatementPostfixTemplateBehavior<ICSharpStatement>
+    {
+        public SamplePostfixBehavior([NotNull] PostfixTemplateInfo info)
+            : base(info)
         {
-            var withValuesContexts = CSharpPostfixUtils.FindExpressionWithValuesContexts(context);
-            return withValuesContexts.Length == 0
-                ? null
-                : new PostfixTemplateInfo("cw", withValuesContexts, availableInPreciseMode: true);
         }
 
-        public override PostfixTemplateBehavior CreateBehavior(PostfixTemplateInfo info)
+        protected override string ExpressionSelectTitle => "ReSharper SDK: Select expression to WriteLine";
+
+        protected override ICSharpStatement CreateStatement(CSharpElementFactory factory, ICSharpExpression expression)
         {
-            return new SamplePostfixBehavior(info);
-        }
-
-        private sealed class SamplePostfixBehavior : CSharpStatementPostfixTemplateBehavior<ICSharpStatement>
-        {
-            public SamplePostfixBehavior([NotNull] PostfixTemplateInfo info)
-                : base(info)
-            {
-            }
-
-            protected override string ExpressionSelectTitle => "Select expression to WriteLine";
-
-            protected override ICSharpStatement CreateStatement(CSharpElementFactory factory, ICSharpExpression expression)
-            {
-                // Creating an IDeclaredType will allow using-directives to be added automatically
-                var type = TypeFactory.CreateTypeByCLRName("System.Console", expression.GetPsiModule());
-                return factory.CreateStatement("$0.WriteLine($1);", type, expression);
-            }
+            // Creating an IDeclaredType will allow using-directives to be added automatically
+            var type = TypeFactory.CreateTypeByCLRName("System.Console", expression.GetPsiModule());
+            return factory.CreateStatement("$0.WriteLine($1);", type, expression);
         }
     }
 }

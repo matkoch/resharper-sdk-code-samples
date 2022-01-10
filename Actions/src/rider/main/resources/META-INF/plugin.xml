@@ -13,8 +13,8 @@
   </description>
 
   <actions>
-    <action id="GotoLinkedTypes2" class="com.jetbrains.rider.plugins.samples.actions.SampleAction"
-            text="Sample Action" description="Sample action description">
+    <action id="SampleAction" class="com.jetbrains.rider.plugins.samples.actions.SampleAction"
+            text="ReSharper SDK: Sample Action" description="ReSharper SDK: Sample action description">
       <keyboard-shortcut keymap="$default" first-keystroke="shift control I"/>
       <keyboard-shortcut keymap="Visual Studio" first-keystroke="shift control I"/>
       <keyboard-shortcut keymap="Visual Studio OSX" first-keystroke="shift meta I"/>

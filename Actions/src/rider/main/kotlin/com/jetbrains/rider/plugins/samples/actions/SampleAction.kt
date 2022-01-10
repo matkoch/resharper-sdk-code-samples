@@ -5,7 +5,7 @@ import icons.ReSharperIcons
 
 class SampleAction : RiderAnAction(
     backendActionId = "SampleAction",
-    text = "Sample Action",
+    text = "ReSharper SDK: Sample Action",
     description = null,
     // Icon must also be changed in backend code
     icon = ReSharperIcons.FeaturesInternal.QuickStartToolWindow

@@ -37,9 +37,9 @@ namespace ReSharperPlugin.CodeVision
             consumer.AddHighlighting(
                 new CodeInsightsHighlighting(
                     element.GetNameDocumentRange(),
-                    displayText: "displayText",
-                    tooltipText: "tooltipText",
-                    moreText: "moreText",
+                    displayText: "ReSharper SDK: displayText",
+                    tooltipText: "ReSharper SDK: tooltipText",
+                    moreText: "ReSharper SDK: moreText",
                     _codeInsightsProvider,
                     element.DeclaredElement,
                     _iconHost.Transform(FeaturesInternalThemedIcons.QuickStartToolWindow.Id))
