@@ -7,5 +7,6 @@ class SampleAction : RiderAnAction(
     backendActionId = "SampleAction",
     text = "Sample Action",
     description = null,
-    icon = ReSharperIcons.UnitTesting.TestFixtureToolWindow
+    // Icon must also be changed in backend code
+    icon = ReSharperIcons.FeaturesInternal.QuickStartToolWindow
 )
